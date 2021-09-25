@@ -4,7 +4,7 @@ using Mutagen.Bethesda.Analyzers.Drivers;
 using Mutagen.Bethesda.Analyzers.Reporting;
 using Mutagen.Bethesda.Plugins.Records;
 
-namespace Mutagen.Bethesda.Analyzers
+namespace Mutagen.Bethesda.Analyzers.Engines
 {
     public class Engine
     {

@@ -29,6 +29,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mutagen.Bethesda.Analyzers.Cli", "Mutagen.Bethesda.Analyzers.Cli\Mutagen.Bethesda.Analyzers.Cli.csproj", "{2414ADAC-994A-46A3-9D09-28093E575DFE}"
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mutagen.Bethesda.Analyzers.Testing", "Mutagen.Bethesda.Analyzers.Testing\Mutagen.Bethesda.Analyzers.Testing.csproj", "{BC0A7772-46BE-4155-9647-591D13AE5D2E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mutagen.Bethesda.Analyzers.Ui", "Mutagen.Bethesda.Analyzers.Ui\Mutagen.Bethesda.Analyzers.Ui.csproj", "{A83F3817-C224-4B83-B911-95A693F8560D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

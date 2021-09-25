@@ -1,5 +1,6 @@
 ﻿using Autofac;
 using Mutagen.Bethesda.Analyzers.Autofac;
+using Mutagen.Bethesda.Analyzers.Engines;
 using Mutagen.Bethesda.Analyzers.Reporting.Console;
 using Mutagen.Bethesda.Environments;
 using Mutagen.Bethesda.Skyrim;
