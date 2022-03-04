@@ -1,4 +1,4 @@
-using Autofac;
+﻿using Autofac;
 using FluentAssertions;
 using Mutagen.Bethesda.Analyzers.Config;
 using Mutagen.Bethesda.Analyzers.Engines;
@@ -61,5 +61,15 @@ public class AnalyzerConfigApplicationTests
             builder.RegisterInstance(sevLookup).As<ISeverityLookup>();
         });
         dropoff.TotalReports.Should().Be(0);
+    }
+
+    [Fact]
+    public void LocalOverrideApplies()
+    {
+        var dropoff = Utility.RunTest(builder =>
+        {
+            builder.RegisterInstance(Utility.WarningAnalyzer).AsImplementedInterfaces();
+        });
+        dropoff.TotalReports.Should().Be(1);
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.IO.Abstractions;
 using Microsoft.Extensions.Logging;
 using Mutagen.Bethesda.Analyzers.SDK.Topics;
 using Noggog;
@@ -10,16 +11,20 @@ public class AnalyzerConfigReader
 {
     public const string SettingEqualString = " = ";
 
+    private readonly IFileSystem _fileSystem;
     private readonly ILogger<AnalyzerConfigReader> _logger;
 
-    public AnalyzerConfigReader(ILogger<AnalyzerConfigReader> logger)
+    public AnalyzerConfigReader(
+        IFileSystem fileSystem,
+        ILogger<AnalyzerConfigReader> logger)
     {
+        _fileSystem = fileSystem;
         _logger = logger;
     }
 
     public void ReadInto(FilePath path, IAnalyzerConfig config)
     {
-        foreach (var line in File.ReadLines(path))
+        foreach (var line in _fileSystem.File.ReadLines(path))
         {
             var span = line.AsSpan();
             ReadInto(span, config);

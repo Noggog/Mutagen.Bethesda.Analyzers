@@ -12,7 +12,7 @@ public class AnalyzerConfigBuilder
 
     private readonly IFileSystem _fileSystem;
     private readonly IDataDirectoryProvider _dataDirectoryProvider;
-    private readonly ICurrentDirectoryProvider _currentDirectoryProvider;
+    public ICurrentDirectoryProvider CurrentDirectoryProvider { get; }
     private readonly AnalyzerConfigReader _reader;
 
     public AnalyzerConfigBuilder(
@@ -23,14 +23,14 @@ public class AnalyzerConfigBuilder
     {
         _fileSystem = fileSystem;
         _dataDirectoryProvider = dataDirectoryProvider;
-        _currentDirectoryProvider = currentDirectoryProvider;
+        CurrentDirectoryProvider = currentDirectoryProvider;
         _reader = reader;
     }
 
     public IAnalyzerConfig Build()
     {
         var config = new AnalyzerConfig();
-        LoadIn(Path.Combine(_currentDirectoryProvider.CurrentDirectory, AnalyzerFileName), config);
+        LoadIn(Path.Combine(CurrentDirectoryProvider.CurrentDirectory, AnalyzerFileName), config);
         LoadIn(Path.Combine(_dataDirectoryProvider.Path, AnalyzerFileName), config);
         return config;
     }
