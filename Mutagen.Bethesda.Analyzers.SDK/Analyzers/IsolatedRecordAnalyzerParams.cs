@@ -1,14 +1,11 @@
-﻿using Mutagen.Bethesda.Plugins.Records;
+﻿namespace Mutagen.Bethesda.Analyzers.SDK.Analyzers;
 
-namespace Mutagen.Bethesda.Analyzers.SDK.Analyzers
+public readonly struct IsolatedRecordAnalyzerParams<TMajor>
 {
-    public readonly struct IsolatedRecordAnalyzerParams<TMajor>
-    {
-        public readonly TMajor Record;
+    public readonly TMajor Record;
 
-        public IsolatedRecordAnalyzerParams(TMajor @record)
-        {
-            Record = record;
-        }
+    public IsolatedRecordAnalyzerParams(TMajor @record)
+    {
+        Record = record;
     }
 }

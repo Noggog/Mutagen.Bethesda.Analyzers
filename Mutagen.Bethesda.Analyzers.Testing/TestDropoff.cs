@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using Mutagen.Bethesda.Analyzers.Reporting;
+﻿using Mutagen.Bethesda.Analyzers.Reporting;
 using Mutagen.Bethesda.Analyzers.SDK.Topics;
 using Mutagen.Bethesda.Plugins.Records;
 

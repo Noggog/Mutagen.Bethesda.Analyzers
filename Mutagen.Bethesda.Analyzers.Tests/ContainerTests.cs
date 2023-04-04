@@ -1,30 +1,27 @@
-﻿using Autofac;
-using Mutagen.Bethesda.Analyzers.Engines;
+﻿using Mutagen.Bethesda.Analyzers.Engines;
 using Mutagen.Bethesda.Analyzers.Testing;
-using Xunit;
 
-namespace Mutagen.Bethesda.Analyzers.Tests
+namespace Mutagen.Bethesda.Analyzers.Tests;
+
+public class ContainerTests
 {
-    public class ContainerTests
+    [Fact]
+    public void ResolvesIsolatedEngine()
     {
-        [Fact]
-        public void ResolvesIsolatedEngine()
-        {
-            var builder = new ContainerBuilder();
-            builder.RegisterModule<TestModule>();
-            var container = builder.Build();
+        var builder = new ContainerBuilder();
+        builder.RegisterModule<TestModule>();
+        var container = builder.Build();
 
-            container.Resolve<IsolatedEngine>();
-        }
+        container.Resolve<IsolatedEngine>();
+    }
 
-        [Fact]
-        public void ResolvesContextualEngine()
-        {
-            var builder = new ContainerBuilder();
-            builder.RegisterModule<TestModule>();
-            var container = builder.Build();
+    [Fact]
+    public void ResolvesContextualEngine()
+    {
+        var builder = new ContainerBuilder();
+        builder.RegisterModule<TestModule>();
+        var container = builder.Build();
 
-            container.Resolve<ContextualEngine>();
-        }
+        container.Resolve<ContextualEngine>();
     }
 }

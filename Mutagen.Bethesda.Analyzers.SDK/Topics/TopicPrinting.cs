@@ -1,23 +1,22 @@
-﻿using Loqui;
+﻿using Noggog.StructuredStrings;
 
-namespace Mutagen.Bethesda.Analyzers.SDK.Topics
+namespace Mutagen.Bethesda.Analyzers.SDK.Topics;
+
+public static class TopicPrinting
 {
-    public static class TopicPrinting
+    public static string ToShortString(this TopicDefinition topic)
     {
-        public static string ToShortString(this TopicDefinition topic)
-        {
-            return $"[{topic.Id}][{topic.Severity.ToShortString()}] {topic.Title}";
-        }
+        return $"[{topic.Id}][{topic.Severity.ToShortString()}] {topic.Title}";
+    }
 
-        public static void Append(this TopicDefinition topic, FileGeneration fg)
+    public static void Append(this TopicDefinition topic, StructuredStringBuilder sb)
+    {
+        sb.AppendLine(topic.ToShortString());
+        using (sb.IncreaseDepth())
         {
-            fg.AppendLine(topic.ToShortString());
-            using (new DepthWrapper(fg))
+            if (topic.InformationUri != null)
             {
-                if (topic.InformationUri != null)
-                {
-                    fg.AppendLine(topic.InformationUri.ToString());
-                }
+                sb.AppendLine(topic.InformationUri.ToString());
             }
         }
     }

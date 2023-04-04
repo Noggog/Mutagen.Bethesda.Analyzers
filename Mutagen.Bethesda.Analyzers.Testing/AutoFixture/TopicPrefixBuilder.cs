@@ -1,4 +1,3 @@
-using System;
 using AutoFixture.Kernel;
 using Mutagen.Bethesda.Analyzers.SDK.Topics;
 

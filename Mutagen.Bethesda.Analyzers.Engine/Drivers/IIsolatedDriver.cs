@@ -1,7 +1,6 @@
-﻿namespace Mutagen.Bethesda.Analyzers.Drivers
+﻿namespace Mutagen.Bethesda.Analyzers.Drivers;
+
+public interface IIsolatedDriver : IDriver
 {
-    public interface IIsolatedDriver : IDriver
-    {
-        void Drive(IsolatedDriverParams driverParams);
-    }
+    void Drive(IsolatedDriverParams driverParams);
 }

@@ -1,9 +1,8 @@
 ﻿using Mutagen.Bethesda.Plugins.Binary.Headers;
 
-namespace Mutagen.Bethesda.Analyzers.Drivers.RecordFrame
+namespace Mutagen.Bethesda.Analyzers.Drivers.RecordFrame;
+
+public interface IIsolatedRecordFrameAnalyzerDriver : IRecordFrameAnalyzerBundle
 {
-    public interface IIsolatedRecordFrameAnalyzerDriver : IRecordFrameAnalyzerBundle
-    {
-        void Drive(IsolatedDriverParams driverParams, MajorRecordFrame frame);
-    }
+    void Drive(IsolatedDriverParams driverParams, MajorRecordFrame frame);
 }

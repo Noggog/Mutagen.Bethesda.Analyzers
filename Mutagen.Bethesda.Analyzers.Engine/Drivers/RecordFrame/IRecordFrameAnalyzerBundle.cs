@@ -1,9 +1,8 @@
 ﻿using Mutagen.Bethesda.Plugins;
 
-namespace Mutagen.Bethesda.Analyzers.Drivers.RecordFrame
+namespace Mutagen.Bethesda.Analyzers.Drivers.RecordFrame;
+
+public interface IRecordFrameAnalyzerBundle : IDriver
 {
-    public interface IRecordFrameAnalyzerBundle : IDriver
-    {
-        RecordType TargetType { get; }
-    }
+    RecordType TargetType { get; }
 }

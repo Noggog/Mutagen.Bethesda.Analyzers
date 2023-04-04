@@ -1,45 +1,43 @@
-﻿using System.Collections.Generic;
-using Mutagen.Bethesda.Analyzers.Drivers;
+﻿using Mutagen.Bethesda.Analyzers.Drivers;
 using Mutagen.Bethesda.Analyzers.Reporting;
 using Mutagen.Bethesda.Plugins;
 using Mutagen.Bethesda.Plugins.Records.DI;
 
-namespace Mutagen.Bethesda.Analyzers.Engines
+namespace Mutagen.Bethesda.Analyzers.Engines;
+
+public interface IIsolatedEngine : IEngine
 {
-    public interface IIsolatedEngine : IEngine
+    void RunOn(ModPath modPath, IReportDropbox reportDropbox);
+}
+
+public class IsolatedEngine : IIsolatedEngine
+{
+    public IModImporter ModImporter { get; }
+    public IDriverProvider<IIsolatedDriver> IsolatedDrivers { get; }
+
+    public IEnumerable<IDriver> Drivers => IsolatedDrivers.Drivers;
+
+    public IsolatedEngine(
+        IModImporter modImporter,
+        IDriverProvider<IIsolatedDriver> isolatedDrivers)
     {
-        void RunOn(ModPath modPath, IReportDropbox reportDropbox);
+        ModImporter = modImporter;
+        IsolatedDrivers = isolatedDrivers;
     }
 
-    public class IsolatedEngine : IIsolatedEngine
+    public void RunOn(ModPath modPath, IReportDropbox reportDropbox)
     {
-        public IModImporter ModImporter { get; }
-        public IDriverProvider<IIsolatedDriver> IsolatedDrivers { get; }
+        var mod = ModImporter.Import(modPath);
 
-        public IEnumerable<IDriver> Drivers => IsolatedDrivers.Drivers;
+        var driverParams = new IsolatedDriverParams(
+            mod.ToUntypedImmutableLinkCache(),
+            reportDropbox,
+            mod,
+            modPath);
 
-        public IsolatedEngine(
-            IModImporter modImporter,
-            IDriverProvider<IIsolatedDriver> isolatedDrivers)
+        foreach (var driver in IsolatedDrivers.Drivers)
         {
-            ModImporter = modImporter;
-            IsolatedDrivers = isolatedDrivers;
-        }
-
-        public void RunOn(ModPath modPath, IReportDropbox reportDropbox)
-        {
-            var mod = ModImporter.Import(modPath);
-
-            var driverParams = new IsolatedDriverParams(
-                mod.ToUntypedImmutableLinkCache(),
-                reportDropbox,
-                mod,
-                modPath);
-
-            foreach (var driver in IsolatedDrivers.Drivers)
-            {
-                driver.Drive(driverParams);
-            }
+            driver.Drive(driverParams);
         }
     }
 }

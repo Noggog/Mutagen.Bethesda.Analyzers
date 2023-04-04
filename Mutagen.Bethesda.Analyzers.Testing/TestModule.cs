@@ -8,26 +8,25 @@ using Mutagen.Bethesda.Analyzers.SDK.Topics;
 using Mutagen.Bethesda.Environments.DI;
 using NSubstitute;
 
-namespace Mutagen.Bethesda.Analyzers.Testing
+namespace Mutagen.Bethesda.Analyzers.Testing;
+
+public class TestModule : Module
 {
-    public class TestModule : Module
+    protected override void Load(ContainerBuilder builder)
     {
-        protected override void Load(ContainerBuilder builder)
-        {
-            builder.RegisterModule<RunAnalyzerModule>();
-            builder.RegisterInstance(new FileSystem())
-                .As<IFileSystem>();
-            builder.RegisterGeneric(typeof(NullLogger<>))
-                .As(typeof(ILogger<>))
-                .SingleInstance();
-            builder.RegisterInstance(new TestDropoff())
-                .AsSelf()
-                .AsImplementedInterfaces();
-            builder.RegisterInstance(new GameReleaseInjection(GameRelease.SkyrimSE))
-                .AsImplementedInterfaces();
-            var minSev = Substitute.For<IMinimumSeverityConfiguration>();
-            minSev.MinimumSeverity.Returns(Severity.Suggestion);
-            builder.RegisterInstance(minSev).As<IMinimumSeverityConfiguration>();
-        }
+        builder.RegisterModule<RunAnalyzerModule>();
+        builder.RegisterInstance(new FileSystem())
+            .As<IFileSystem>();
+        builder.RegisterGeneric(typeof(NullLogger<>))
+            .As(typeof(ILogger<>))
+            .SingleInstance();
+        builder.RegisterInstance(new TestDropoff())
+            .AsSelf()
+            .AsImplementedInterfaces();
+        builder.RegisterInstance(new GameReleaseInjection(GameRelease.SkyrimSE))
+            .AsImplementedInterfaces();
+        var minSev = Substitute.For<IMinimumSeverityConfiguration>();
+        minSev.MinimumSeverity.Returns(Severity.Suggestion);
+        builder.RegisterInstance(minSev).As<IMinimumSeverityConfiguration>();
     }
 }

@@ -1,13 +1,25 @@
 <Project>
-    <PropertyGroup>
-        <TargetFramework>net6.0</TargetFramework>
-        <ImplicitUsings>disable</ImplicitUsings>
-        <Nullable>enable</Nullable>
-        <LangVersion>default</LangVersion>
-        <TargetPlatformIdentifier>Windows</TargetPlatformIdentifier>
-    </PropertyGroup>
+ 
+  <PropertyGroup> 
+    <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally> 
+    <TargetFramework>net6.0</TargetFramework>
+  </PropertyGroup> 
+   
+  <!-- To be redefined by GitInfo after restore. -->
+  <Target Name="GitVersion" />
 
-    <ItemGroup>
-        <Compile Include="$(MSBuildThisFileDirectory)IsExternalInit.cs" Visible="false" />
-    </ItemGroup>
+  <Target Name="SetVersion"
+		  BeforeTargets="GetAssemblyVersion;GetPackageVersion"
+		  DependsOnTargets="GitVersion"
+		  Returns="$(PackageVersion)">
+    <PropertyGroup>
+      <DevLabel Condition="$(GitCommits) != '0'">.1-dev</DevLabel>
+      <DevLabel Condition="$(GitCommits) == '0' And $(GitSemVerDashLabel) != ''">$(GitSemVerDashLabel)</DevLabel>
+      <AssemblyDevLabel Condition="$(GitCommits) != '0'">.1</AssemblyDevLabel>
+      <FileVersion>$(GitBaseVersionMajor).$(GitBaseVersionMinor).$(GitBaseVersionPatch)$(AssemblyDevLabel)</FileVersion>
+      <PackageVersion>$(GitBaseVersionMajor).$(GitBaseVersionMinor).$(GitBaseVersionPatch)$(DevLabel)</PackageVersion>
+      <Version>$(GitBaseVersionMajor).$(GitBaseVersionMinor).$(GitBaseVersionPatch)$(AssemblyDevLabel)</Version>
+      <InformationalVersion>$(PackageVersion)</InformationalVersion>
+    </PropertyGroup>
+  </Target>
 </Project>

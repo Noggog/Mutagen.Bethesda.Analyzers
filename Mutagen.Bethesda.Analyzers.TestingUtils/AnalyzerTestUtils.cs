@@ -1,5 +1,4 @@
-﻿using System.Linq;
-using Mutagen.Bethesda.Analyzers.SDK.Topics;
+﻿using Mutagen.Bethesda.Analyzers.SDK.Topics;
 using Mutagen.Bethesda.Analyzers.SDK.Results;
 using Xunit;
 

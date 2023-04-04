@@ -7,9 +7,9 @@
         <ProjectReference Include="..\Mutagen.Bethesda.Analyzers.Skyrim\Mutagen.Bethesda.Analyzers.Skyrim.csproj" />
     </ItemGroup>
     <ItemGroup>
-        <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="7.2.0" />
-        <PackageReference Include="Microsoft.Extensions.Logging.Console" Version="6.0.0" />
-        <PackageReference Include="Mutagen.Bethesda" Version="0.36.1.1-dev" />
-        <PackageReference Include="CommandLineParser" Version="2.8.0" />
+        <PackageReference Include="Autofac.Extensions.DependencyInjection" />
+        <PackageReference Include="Microsoft.Extensions.Logging.Console" />
+        <PackageReference Include="Mutagen.Bethesda" />
+        <PackageReference Include="CommandLineParser" />
     </ItemGroup>
 </Project>

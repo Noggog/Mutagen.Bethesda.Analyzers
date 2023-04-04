@@ -1,11 +1,8 @@
-﻿using System;
-using Autofac;
-using Mutagen.Bethesda.Analyzers.Engines;
+﻿using Mutagen.Bethesda.Analyzers.Engines;
 using Mutagen.Bethesda.Analyzers.SDK.Analyzers;
 using Mutagen.Bethesda.Analyzers.SDK.Results;
 using Mutagen.Bethesda.Analyzers.SDK.Topics;
 using Mutagen.Bethesda.Analyzers.Testing;
-using NSubstitute;
 
 namespace Mutagen.Bethesda.Analyzers.Tests;
 

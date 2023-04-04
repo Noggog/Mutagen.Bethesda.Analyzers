@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Mutagen.Bethesda.Analyzers.SDK.Topics;
+﻿namespace Mutagen.Bethesda.Analyzers.SDK.Topics;
 
 public record TopicId
 {

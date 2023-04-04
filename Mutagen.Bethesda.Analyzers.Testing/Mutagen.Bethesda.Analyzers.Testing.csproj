@@ -3,15 +3,15 @@
     <PropertyGroup>
         <RootNamespace>Mutagen.Bethesda.Analyzers.Testing</RootNamespace>
     </PropertyGroup>
-    
+
     <PropertyGroup>
         <TargetFramework>net6.0</TargetFramework>
         <TargetPlatformIdentifier>Windows</TargetPlatformIdentifier>
     </PropertyGroup>
 
     <ItemGroup>
-      <PackageReference Include="AutoFixture.AutoMoq" Version="4.17.0" />
-      <PackageReference Include="Mutagen.Bethesda.Testing" Version="0.36.1.1-dev" />
+      <PackageReference Include="AutoFixture.AutoMoq" />
+      <PackageReference Include="Mutagen.Bethesda.Testing" />
     </ItemGroup>
 
     <ItemGroup>

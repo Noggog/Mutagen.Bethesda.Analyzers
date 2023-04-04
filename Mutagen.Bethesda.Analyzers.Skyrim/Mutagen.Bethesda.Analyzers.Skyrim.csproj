@@ -1,18 +1,18 @@
 <Project Sdk="Microsoft.NET.Sdk">
-    
+
     <PropertyGroup>
       <RootNamespace>Mutagen.Bethesda.Analyzers.Skyrim</RootNamespace>
     </PropertyGroup>
-    
+
     <ItemGroup>
       <ProjectReference Include="..\Mutagen.Bethesda.Analyzers.Common\Mutagen.Bethesda.Analyzers.Common.csproj" />
       <ProjectReference Include="..\Mutagen.Bethesda.Analyzers.SDK\Mutagen.Bethesda.Analyzers.SDK.csproj" />
     </ItemGroup>
-    
+
     <ItemGroup>
-      <PackageReference Include="Mutagen.Bethesda.Skyrim" Version="0.36.1.1-dev" />
+      <PackageReference Include="Mutagen.Bethesda.Skyrim" />
     </ItemGroup>
-    
+
     <ItemGroup>
       <Compile Update="MissingAssetsAnalyzerArmor.cs">
         <DependentUpon>MissingAssetsAnalyzer.cs</DependentUpon>

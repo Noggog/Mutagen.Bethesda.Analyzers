@@ -1,8 +1,4 @@
-﻿using System;
-using System.Linq;
-using FluentAssertions;
-using Mutagen.Bethesda.Analyzers.SDK.Topics;
-using Xunit;
+﻿using Mutagen.Bethesda.Analyzers.SDK.Topics;
 
 namespace Mutagen.Bethesda.Analyzers.Tests.Engine;
 

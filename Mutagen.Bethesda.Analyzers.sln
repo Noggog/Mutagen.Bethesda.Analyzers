@@ -6,6 +6,8 @@ ProjectSection(SolutionItems) = preProject
 	.gitignore = .gitignore
 	README.md = README.md
 	Directory.Build.props = Directory.Build.props
+	Directory.Build.targets = Directory.Build.targets
+	Directory.Packages.props = Directory.Packages.props
 EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mutagen.Bethesda.Analyzers.SDK", "Mutagen.Bethesda.Analyzers.SDK\Mutagen.Bethesda.Analyzers.SDK.csproj", "{099DF49C-B15B-407C-93B3-4C63FBB50ACB}"

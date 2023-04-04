@@ -1,13 +1,8 @@
-﻿using System;
-using System.IO.Abstractions;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.IO.Abstractions;
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
-using Loqui;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using Mutagen.Bethesda.Analyzers.Autofac;
 using Mutagen.Bethesda.Analyzers.Cli.Args;
 using Mutagen.Bethesda.Analyzers.Cli.Modules;
 using Mutagen.Bethesda.Analyzers.Engines;
@@ -16,67 +11,67 @@ using Mutagen.Bethesda.Analyzers.SDK.Topics;
 using Mutagen.Bethesda.Analyzers.Skyrim;
 using Mutagen.Bethesda.Environments.DI;
 using Noggog;
+using Noggog.StructuredStrings;
 
-namespace Mutagen.Bethesda.Analyzers.Cli
+namespace Mutagen.Bethesda.Analyzers.Cli;
+
+public static class RunAnalyzers
 {
-    public static class RunAnalyzers
+    public static async Task<int> Run(RunAnalyzersCommand command)
     {
-        public static async Task<int> Run(RunAnalyzersCommand command)
+        var container = GetContainer(command);
+
+        var engine = container.Resolve<ContextualEngine>();
+
+        PrintTopics(command, engine);
+
+        engine.Run();
+
+        return 0;
+    }
+
+    private static void PrintTopics(RunAnalyzersCommand command, ContextualEngine engine)
+    {
+        if (!command.PrintTopics) return;
+
+        Console.WriteLine("Topics:");
+        var sb = new StructuredStringBuilder();
+        foreach (var topic in engine.Drivers
+                     .SelectMany(d => d.Analyzers)
+                     .SelectMany(a => a.Topics)
+                     .Distinct(x => x.Id))
         {
-            var container = GetContainer(command);
-
-            var engine = container.Resolve<ContextualEngine>();
-
-            PrintTopics(command, engine);
-
-            engine.Run();
-
-            return 0;
+            topic.Append(sb);
         }
 
-        private static void PrintTopics(RunAnalyzersCommand command, ContextualEngine engine)
+        foreach (var line in sb)
         {
-            if (!command.PrintTopics) return;
-
-            Console.WriteLine("Topics:");
-            var fg = new FileGeneration();
-            foreach (var topic in engine.Drivers
-                         .SelectMany(d => d.Analyzers)
-                         .SelectMany(a => a.Topics)
-                         .Distinct(x => x.Id))
-            {
-                topic.Append(fg);
-            }
-
-            foreach (var line in fg)
-            {
-                Console.WriteLine(line);
-            }
-
-            Console.WriteLine();
-            Console.WriteLine();
+            Console.WriteLine(line);
         }
 
-        private static IContainer GetContainer(RunAnalyzersCommand command)
-        {
-            var services = new ServiceCollection();
-            services.AddLogging(x => x.AddConsole());
+        Console.WriteLine();
+        Console.WriteLine();
+    }
 
-            var builder = new ContainerBuilder();
-            builder.Populate(services);
-            builder.RegisterInstance(new FileSystem())
-                .As<IFileSystem>();
-            builder.RegisterModule<RunAnalyzerModule>();
-            builder.RegisterInstance(new GameReleaseInjection(command.GameRelease))
-                .AsImplementedInterfaces();
-            builder.RegisterType<ConsoleReporter>().As<IReportDropbox>();
-            builder.RegisterInstance(command).AsImplementedInterfaces();
+    private static IContainer GetContainer(RunAnalyzersCommand command)
+    {
+        var services = new ServiceCollection();
+        services.AddLogging(x => x.AddConsole());
 
-            // Add Skyrim Analyzers
-            builder.RegisterAssemblyTypes(typeof(MissingAssetsAnalyzer).Assembly)
-                .AsImplementedInterfaces();
+        var builder = new ContainerBuilder();
+        builder.Populate(services);
+        builder.RegisterInstance(new FileSystem())
+            .As<IFileSystem>();
+        builder.RegisterModule<RunAnalyzerModule>();
+        builder.RegisterInstance(new GameReleaseInjection(command.GameRelease))
+            .AsImplementedInterfaces();
+        builder.RegisterType<ConsoleReporter>().As<IReportDropbox>();
+        builder.RegisterInstance(command).AsImplementedInterfaces();
 
-            return builder.Build();
-        }
+        // Add Skyrim Analyzers
+        builder.RegisterAssemblyTypes(typeof(MissingAssetsAnalyzer).Assembly)
+            .AsImplementedInterfaces();
+
+        return builder.Build();
     }
 }

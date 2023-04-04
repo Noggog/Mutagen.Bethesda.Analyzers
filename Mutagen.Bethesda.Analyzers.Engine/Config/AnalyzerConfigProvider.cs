@@ -1,5 +1,4 @@
-﻿using System;
-using Mutagen.Bethesda.Analyzers.SDK.Topics;
+﻿using Mutagen.Bethesda.Analyzers.SDK.Topics;
 
 namespace Mutagen.Bethesda.Analyzers.Config;
 
